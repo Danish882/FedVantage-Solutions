@@ -1,270 +1,455 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-  Github,
-  Linkedin,
-  Mail,
-  Phone,
-  ArrowUpRight,
-  Clock,
-  Code,
-  BookOpen,
-  ExternalLink,
-  Facebook,
-  Instagram,
-  Home,
-  FolderOpen,
-  Settings
-} from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Shield, Globe, MapPin, Phone, Mail, ChevronRight } from "lucide-react";
 
+/**
+ * Enhanced Footer Component with Purple/Orange Theme
+ */
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  const navigate = useNavigate();
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  // Updated to use absolute paths
-  const footerData = {
-    personal: {
-      name: "Muhammad Irfan",
-      tagline: "TRANSFORMING YOUR IDEAS INTO DIGITAL REALITY",
-      description: "Stay ahead with the latest tech trends, expert insights, and exclusive offers — let's Get Started",
-    },
-    leftLinks: [
-      { name: "Home", href: "/", icon: Home },
-      { name: "Projects", href: "/projects", icon: FolderOpen },
-      { name: "Blogs", href: "/blogs", icon: BookOpen },
-      { name: "Services", href: "/services", icon: Settings }
-    ],
-    contact: {
-      email: "codingwithme178@gmail.com",
-      phone: "+92 301 3900 245",
-      location: "Lahore, Pakistan",
-      hours: "Monday - Saturday",
-      sunday: "Sun: Closed"
-    },
-    social: [
-      { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/profile.php?id=61562378504974" },
-      { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/codingwithme178/" },
-      { name: "Linkedin", icon: Linkedin, href: "https://www.linkedin.com/in/irfan-khan1074/" }
-    ]
-  };
-
-  // Handle navigation with error fallback
-  const handleNavigation = (path) => {
-    try {
-      navigate(path);
-      scrollToTop();
-    } catch (error) {
-      console.error('Navigation error:', error);
-      window.location.href = path; // Fallback to full page reload
-    }
-  };
-
-  const CenteredLogo = () => {
-    const handleImageError = (e) => {
-      e.target.style.display = 'none';
-      const fallbackDiv = e.target.nextSibling;
-      if (fallbackDiv) {
-        fallbackDiv.style.display = 'flex';
-      }
-    };
-
-    return (
-      <div className="flex flex-col items-center space-y-8">
-        <div className="relative group">
-          <div className="absolute -inset-2 bg-gradient-to-r from-[#6EE7B7] to-[#93C5FD] rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-          <div className="relative bg-[#1E1E1E] p-6 rounded-xl border border-[#1E1E1E] group-hover:border-[#6EE7B7] transition-all duration-300">
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <img
-                  src="/logo.png" // Updated to use public path
-                  alt="Logo"
-                  className="w-16 h-16 object-contain"
-                  onError={handleImageError}
-                />
-                <div className="w-16 h-16 bg-gradient-to-br from-[#6EE7B7] to-[#93C5FD] rounded-xl items-center justify-center transform group-hover:scale-105 transition-transform duration-300 shadow-xl hidden">
-                  <Code className="w-8 h-8 text-[#121212]" />
-                </div>
-              </div>
-              <div className="text-4xl font-bold tracking-tight">
-                <span className="text-[#E5E7EB]">DEV&</span>
-                <span className="text-[#6EE7B7]">DONE</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center space-y-6 max-w-md">
-          <div className="relative">
-            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#6EE7B7] rounded-full opacity-20 animate-pulse"></div>
-            <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-[#93C5FD] rounded-full opacity-30 animate-pulse delay-1000"></div>
-
-            <p className="text-[#6EE7B7] text-sm font-semibold uppercase tracking-wider relative z-10">
-              {footerData.personal.tagline}
-            </p>
-          </div>
-
-          <h3 className="text-[#E5E7EB] text-xl font-semibold leading-relaxed">
-            {footerData.personal.description}
-          </h3>
-
-          <div className="space-y-4">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#6EE7B7] to-transparent mx-auto"></div>
-            <div className="flex space-x-4 justify-center">
-              {footerData.social.map((platform) => {
-                const Icon = platform.icon;
-                return (
-                  <a
-                    key={platform.name}
-                    href={platform.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative group"
-                    aria-label={platform.name}
-                  >
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#6EE7B7] to-[#93C5FD] rounded-full blur opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
-                    <div className="relative w-12 h-12 bg-[#1E1E1E] hover:bg-[#6EE7B7] rounded-full flex items-center justify-center text-[#9CA3AF] hover:text-[#121212] transition-all duration-300 hover:scale-110 border border-[#1E1E1E] hover:border-[#6EE7B7]">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const EnhancedLink = ({ item, alignment = 'left' }) => {
-    const Icon = item.icon;
-    return (
-      <li className="group">
-        <button
-          onClick={() => handleNavigation(item.href)}
-          className={`flex items-center space-x-3 p-3 rounded-lg hover:bg-[#1E1E1E] transition-all duration-300 w-full ${alignment === 'right' ? 'justify-end text-right' : ''
-            }`}
-        >
-          {alignment === 'left' && Icon && (
-            <Icon className="w-4 h-4 text-[#93C5FD] group-hover:text-[#6EE7B7] transition-colors duration-300" />
-          )}
-          <span className="text-[#9CA3AF] group-hover:text-[#E5E7EB] transition-colors duration-300 text-sm font-medium">
-            {item.name}
-          </span>
-          {alignment === 'right' && Icon && (
-            <Icon className="w-4 h-4 text-[#93C5FD] group-hover:text-[#6EE7B7] transition-colors duration-300" />
-          )}
-          <ArrowUpRight className="w-4 h-4 text-[#6EE7B7] opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
-        </button>
-      </li>
-    );
-  };
-
   return (
-    <footer className="bg-[#222322] text-[#E5E7EB] relative overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#6EE7B7] rounded-full mix-blend-multiply filter blur-xl opacity-5 animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#93C5FD] rounded-full mix-blend-multiply filter blur-xl opacity-5 animate-pulse delay-1000"></div>
+    <footer className="relative bg-gradient-to-br from-[#3A1078] via-[#4E31AA] to-[#3A1078] pt-10 pb-12 overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Floating Orbs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FEA405]/20 rounded-full blur-3xl animate-float-slow"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#4E31AA]/30 rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-[#3A1078]/20 rounded-full blur-3xl animate-pulse-glow"></div>
       </div>
 
-      <div className="relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-            <div className="space-y-8">
-              <div className="relative">
-                <h4 className="text-lg font-bold text-[#E5E7EB] uppercase tracking-wider mb-2">QUICK LINKS</h4>
-                <div className="w-12 h-1 bg-gradient-to-r from-[#6EE7B7] to-[#93C5FD] rounded-full"></div>
-              </div>
+      {/* Animated Grid Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div
+          className="h-full w-full animate-grid-slide"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(254,164,5,.15) 2px, transparent 2px), linear-gradient(90deg, rgba(254,164,5,.15) 2px, transparent 2px)",
+            backgroundSize: "60px 60px",
+          }}
+        ></div>
+      </div>
 
-              <div className="space-y-2">
-                <ul className="space-y-2">
-                  {footerData.leftLinks.map((item) => (
-                    <EnhancedLink key={item.name} item={item} alignment="left" />
-                  ))}
-                </ul>
+      {/* Animated Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-[#FEA405]/40 rounded-full animate-particle-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Large Background Text */}
+      <div className="absolute bottom-0 right-0 text-[#4E31AA]/20 opacity-30 font-bold text-[10rem] leading-none -mb-10 -mr-10 select-none pointer-events-none animate-pulse-slow">
+        FED
+      </div>
+
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Newsletter Section */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 border-b border-white/10 pb-12">
+          {/* Brand Column */}
+          <div className="space-y-6 animate-fade-in-up animation-delay-200">
+            <div className="flex items-center space-x-2 group">
+              <div className="bg-[#FEA405]/20 p-2 rounded transform transition-all duration-500 group-hover:rotate-[360deg] group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-[#FEA405]/50">
+                <Shield className="text-[#FEA405] w-6 h-6 animate-icon-pulse" />
               </div>
+              <span className="text-2xl font-bold text-white hover:text-[#FEA405] transition-colors duration-300">
+                FED<span className="text-[#FEA405]">VANTAGE</span>
+              </span>
             </div>
-
-            <div className="flex justify-center">
-              <CenteredLogo />
+            <p className="text-white/80 text-sm leading-relaxed hover:text-white transition-colors duration-300">
+              FedVantage Solutions delivers secure, reliable, and scalable IT
+              services to government and enterprise clients. We specialize in
+              managed IT, cybersecurity, cloud, staffing, and hardware solutions
+              that drive mission success and digital transformation.
+            </p>
+            <div className="flex space-x-4">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#FEA405] hover:text-white transition-all duration-500 cursor-pointer border border-white/20 hover:border-[#FEA405] transform hover:scale-125 hover:-translate-y-3 hover:rotate-12 hover:shadow-xl hover:shadow-[#FEA405]/50 animate-bounce-subtle"
+                  style={{ animationDelay: `${i * 200}ms` }}
+                >
+                  <Globe size={18} />
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div className="space-y-8">
-              <div className="relative text-center md:text-right">
-                <h4 className="text-lg font-bold text-[#E5E7EB] uppercase tracking-wider mb-2">GET IN TOUCH</h4>
-                <div className="w-12 h-1 bg-gradient-to-r from-[#6EE7B7] to-[#93C5FD] rounded-full mx-auto md:ml-auto md:mr-0"></div>
-              </div>
+          {/* Quick Links */}
+          <div className="animate-fade-in-up animation-delay-400">
+            <h3 className="text-white font-bold mb-6 text-lg border-l-4 border-[#FEA405] pl-3 hover:border-white transition-colors duration-300 animate-slide-in-left">
+              Quick Links
+            </h3>
+            <ul className="space-y-4 text-sm text-white/80">
+              {[
+                { name: "Home", path: "/" },
+                { name: "About Us", path: "/about" },
+                { name: "Services", path: "/services" },
+                { name: "Careers", path: "/careers" },
+              ].map((item, i) => (
+                <li
+                  key={i}
+                  className="hover:text-[#FEA405] cursor-pointer transition-all duration-300 flex items-center group hover:translate-x-4 animate-slide-in-sequence"
+                  style={{ animationDelay: `${i * 100}ms` }}
+                >
+                  <ChevronRight
+                    size={14}
+                    className="mr-2 group-hover:text-[#FEA405] transition-all duration-300 group-hover:translate-x-2 group-hover:scale-125"
+                  />
+                  <Link to={item.path} className="hover:underline">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              <div className="space-y-6 text-center md:text-right">
-                <div className="group flex justify-center md:justify-end">
-                  <a
-                    href={`tel:${footerData.contact.phone}`}
-                    className="inline-flex items-center space-x-2 text-[#6EE7B7] hover:text-[#93C5FD] transition-colors duration-300 text-xl font-bold group-hover:scale-105 transform transition-transform"
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span>{footerData.contact.phone}</span>
-                  </a>
-                </div>
+          {/* Capabilities */}
+          <div className="animate-fade-in-up animation-delay-600">
+            <h3 className="text-white font-bold mb-6 text-lg border-l-4 border-[#4E31AA] pl-3 hover:border-[#FEA405] transition-colors duration-300 animate-slide-in-left">
+              Capabilities
+            </h3>
+            <ul className="space-y-4 text-sm text-white/80">
+              {[
+                "Managed IT Services",
+                "Cybersecurity & Compliance",
+                "Cloud Migration",
+                "IT Staffing Solutions",
+              ].map((item, i) => (
+                <li
+                  key={i}
+                  className="hover:text-white cursor-pointer transition-all duration-300 hover:translate-x-3 animate-slide-in-sequence"
+                  style={{ animationDelay: `${i * 100 + 200}ms` }}
+                >
+                  <Link to="/services" className="hover:underline">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                <div className="group flex justify-center md:justify-end">
-                  <a
-                    href={`mailto:${footerData.contact.email}`}
-                    className="inline-flex items-center space-x-2 text-[#9CA3AF] hover:text-[#6EE7B7] transition-colors duration-300 text-sm group-hover:scale-105 transform transition-transform"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span>{footerData.contact.email}</span>
-                  </a>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-center md:justify-end space-x-2">
-                    <Clock className="w-4 h-4 text-[#93C5FD]" />
-                    <span className="text-[#9CA3AF] text-sm">{footerData.contact.hours}</span>
-                  </div>
-                  <div className="flex items-center justify-center md:justify-end space-x-2">
-                    <Clock className="w-4 h-4 text-[#93C5FD]" />
-                    <span className="text-[#9CA3AF] text-sm">{footerData.contact.sunday}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Contact */}
+          <div className="animate-fade-in-up animation-delay-800">
+            <h3 className="text-white font-bold mb-6 text-lg border-l-4 border-white pl-3 hover:border-[#FEA405] transition-colors duration-300 animate-slide-in-left">
+              Contact Us
+            </h3>
+            <ul className="space-y-4 text-sm text-white/80">
+              <li className="flex items-start group hover:text-white transition-colors duration-300">
+                <MapPin
+                  size={18}
+                  className="mr-3 mt-0.5 text-[#FEA405] flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 animate-icon-bounce"
+                />
+                <span>
+                  123 Federal Plaza, Suite 400
+                  <br />
+                  Washington, DC 20001
+                </span>
+              </li>
+              <li className="flex items-center group hover:text-white transition-colors duration-300">
+                <Phone
+                  size={18}
+                  className="mr-3 text-[#FEA405] flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 animate-icon-bounce animation-delay-200"
+                />
+                <span>(555) 123-4567</span>
+              </li>
+              <li className="flex items-center group hover:text-white transition-colors duration-300">
+                <Mail
+                  size={18}
+                  className="mr-3 text-[#FEA405] flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 animate-icon-bounce animation-delay-400"
+                />
+                <span>info@fedvantage.com</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-[#1E1E1E] bg-[#1E1E1E]/50 backdrop-blur-sm">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6">
-                <p className="text-xs text-[#9CA3AF] flex items-center space-x-2">
-                  <span>© {currentYear} Muhammad Irfan. All rights reserved.</span>
-                </p>
-                <div className="flex space-x-4 text-xs">
-                  <button onClick={() => handleNavigation('/privacy-policy')} className="text-[#9CA3AF] hover:text-[#6EE7B7] transition-colors duration-300 hover:underline">
-                    Privacy Policy
-                  </button>
-                  <span className="text-[#9CA3AF]">•</span>
-                  <button onClick={() => handleNavigation('/terms-of-service')} className="text-[#9CA3AF] hover:text-[#6EE7B7] transition-colors duration-300 hover:underline">
-                    Terms of Service
-                  </button>
-                </div>
-              </div>
-
-              <button onClick={scrollToTop} className="relative group" aria-label="Back to top">
-                <div className="absolute -inset-2 bg-gradient-to-r from-[#6EE7B7] to-[#93C5FD] rounded-full blur opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
-                <div className="relative bg-[#1E1E1E] hover:bg-[#6EE7B7] text-[#E5E7EB] hover:text-[#121212] p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 border border-[#1E1E1E] hover:border-[#6EE7B7] flex items-center justify-center">
-                  <ArrowUpRight className="w-5 h-5 transform rotate-45 group-hover:rotate-90 transition-transform duration-300" />
-                </div>
-              </button>
-            </div>
+        <div className="flex flex-col md:flex-row justify-between items-center text-xs text-white/60 font-medium animate-fade-in">
+          <p>&copy; 2024 FedVantage Solutions. All rights reserved.</p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            {["Privacy Policy", "Terms of Service", "Sitemap"].map(
+              (item, i) => (
+                <span
+                  key={i}
+                  className="hover:text-white cursor-pointer transition-all duration-300 hover:scale-110 transform hover:-translate-y-1 animate-fade-in-scale"
+                  style={{ animationDelay: `${i * 100}ms` }}
+                >
+                  {item}
+                </span>
+              )
+            )}
           </div>
         </div>
+
+        <div className="text-center mt-8 text-[10px] text-[#FEA405] uppercase tracking-widest animate-text-glow">
+          Empowering Federal and Enterprise Success Through Smart IT Solutions
+        </div>
       </div>
+
+      <style jsx>{`
+        @keyframes float-slow {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          25% {
+            transform: translate(30px, -30px) scale(1.1);
+          }
+          50% {
+            transform: translate(-30px, 30px) scale(0.9);
+          }
+          75% {
+            transform: translate(30px, 30px) scale(1.05);
+          }
+        }
+
+        @keyframes float-delayed {
+          0%,
+          100% {
+            transform: translate(0, 0) scale(1);
+          }
+          33% {
+            transform: translate(-25px, 25px) scale(1.08);
+          }
+          66% {
+            transform: translate(25px, -20px) scale(0.95);
+          }
+        }
+
+        @keyframes pulse-glow {
+          0%,
+          100% {
+            opacity: 0.2;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.4;
+            transform: scale(1.05);
+          }
+        }
+
+        @keyframes grid-slide {
+          0% {
+            transform: translateY(0) translateX(0);
+          }
+          100% {
+            transform: translateY(60px) translateX(60px);
+          }
+        }
+
+        @keyframes particle-float {
+          0% {
+            transform: translateY(0) scale(0);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(-100vh) scale(1);
+            opacity: 0;
+          }
+        }
+
+        @keyframes pulse-slow {
+          0%,
+          100% {
+            opacity: 0.3;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slide-in-right {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slide-in-left {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slide-in-sequence {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes glow-pulse {
+          0%,
+          100% {
+            box-shadow: 0 0 20px rgba(254, 164, 5, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 40px rgba(254, 164, 5, 0.6);
+          }
+        }
+
+        @keyframes icon-pulse {
+          0%,
+          100% {
+            filter: drop-shadow(0 0 2px rgba(254, 164, 5, 0.5));
+          }
+          50% {
+            filter: drop-shadow(0 0 8px rgba(254, 164, 5, 1));
+          }
+        }
+
+        @keyframes icon-bounce {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-5px);
+          }
+        }
+
+        @keyframes bounce-subtle {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-8px);
+          }
+        }
+
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes fade-in-scale {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes text-glow {
+          0%,
+          100% {
+            text-shadow: 0 0 10px rgba(254, 164, 5, 0.5);
+          }
+          50% {
+            text-shadow: 0 0 20px rgba(254, 164, 5, 0.8);
+          }
+        }
+
+        .animate-float-slow {
+          animation: float-slow 8s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+          animation: float-delayed 10s ease-in-out infinite;
+        }
+        .animate-pulse-glow {
+          animation: pulse-glow 6s ease-in-out infinite;
+        }
+        .animate-grid-slide {
+          animation: grid-slide 25s linear infinite;
+        }
+        .animate-particle-float {
+          animation: particle-float linear infinite;
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 0.8s ease-out forwards;
+        }
+        .animate-slide-in-right {
+          animation: slide-in-right 0.8s ease-out forwards;
+        }
+        .animate-slide-in-left {
+          animation: slide-in-left 0.6s ease-out forwards;
+        }
+        .animate-slide-in-sequence {
+          animation: slide-in-sequence 0.6s ease-out forwards;
+        }
+        .animate-glow-pulse {
+          animation: glow-pulse 2s ease-in-out infinite;
+        }
+        .animate-icon-pulse {
+          animation: icon-pulse 2s ease-in-out infinite;
+        }
+        .animate-icon-bounce {
+          animation: icon-bounce 2s ease-in-out infinite;
+        }
+        .animate-bounce-subtle {
+          animation: bounce-subtle 3s ease-in-out infinite;
+        }
+        .animate-fade-in {
+          animation: fade-in 1s ease-out forwards;
+        }
+        .animate-fade-in-scale {
+          animation: fade-in-scale 0.6s ease-out forwards;
+        }
+        .animate-text-glow {
+          animation: text-glow 3s ease-in-out infinite;
+        }
+
+        .animation-delay-200 {
+          animation-delay: 200ms;
+        }
+        .animation-delay-400 {
+          animation-delay: 400ms;
+        }
+        .animation-delay-600 {
+          animation-delay: 600ms;
+        }
+        .animation-delay-800 {
+          animation-delay: 800ms;
+        }
+      `}</style>
     </footer>
   );
 };

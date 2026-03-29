@@ -1,23 +1,16 @@
-// src/App.jsx
-import { BrowserRouter } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import AppRoutes from './routes/AppRoutes';
-import ScrollToTop from './components/ScrollToTop';
+import React from 'react';
 
-function App() {
+import Router from './routes/Router.jsx'; // UPDATED PATH
+
+
+const App = () => {
   return (
-    <>
-    <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <AppRoutes />
-        </main>
-        <Footer />
-      </div>
-    </>
+    <div className="bg-slate-50 text-slate-800 font-sans selection:bg-cyan-200 selection:text-slate-900">
+      
+        <Router />
+      
+    </div>
   );
-}
+};
 
 export default App;
